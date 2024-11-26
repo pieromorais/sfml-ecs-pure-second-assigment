@@ -20,7 +20,8 @@ private:
 public:
 	EntityManager();
 	void update();
-	std::shared_ptr<Entity> addEntity(const std::string& tag); // kind of entity - map
+	void addEntity(const std::string& tag); // kind of entity - map
+	
 	EntityVec& getEntities();
 	EntityVec& getEntities(const std::string& tag);
 };

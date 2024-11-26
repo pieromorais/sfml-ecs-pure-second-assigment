@@ -3,11 +3,15 @@
 
 EntityManager::EntityManager() {}
 
-std::shared_ptr<Entity> EntityManager::addEntity(const std::string& tag)
+void EntityManager::addEntity(const std::string& tag)
 {
-	auto e = std::make_shared<Entity>(tag, this->m_totalEntities++);
-	this->m_entities.push_back(e);
-	this->m_entityMap[tag].push_back(e);
+	// insert into to_add to avoid interator invalidation
+	// occurs once we remove a entity from array while looping thru
+	Entity testEntity(42);
+	std::shared_ptr sharedVector = std::make_shared<Entity>(testEntity);
+	this->m_totalEntities++;
+	this->m_toAdd.push_back(sharedVector);
+	this->m_entityMap[tag].push_back(sharedVector);
 
 	return e;
 }
