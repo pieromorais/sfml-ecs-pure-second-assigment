@@ -24,6 +24,8 @@ public:
 	
 	EntityVec& getEntities();
 	EntityVec& getEntities(const std::string& tag);
+
+	const void getTotalEntities() const;
 };
 
 #endif
