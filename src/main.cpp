@@ -1,4 +1,6 @@
 #include "Vec2.h"
+#include "Entity.h"
+#include "EntityManager.h"
 #include <iostream> // remove later
 
 int main()
@@ -19,6 +21,11 @@ int main()
 	std::cout << v_.dist(v0) << std::endl;
 	v1 /= 10;
 	std::cout << v1 << std::endl;
+
+	EntityManager em;
+	em.addEntity("enemy");
+	em.addEntity("enemy");
+	em.getTotalEntities();
 	
 	return 0;
 }
