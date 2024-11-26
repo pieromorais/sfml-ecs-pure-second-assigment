@@ -15,5 +15,32 @@ void EntityManager::addEntity(const std::string& tag)
 	this->m_toAdd.push_back(sharedVector);
 	this->m_entityMap[tag].push_back(sharedVector);
 
-	return e;
+
+//	return e;
+}
+
+void EntityManager::update()
+{
+	
+	for (auto& ents : this->m_toAdd)
+	{
+		this->m_entities.push_back(ents);
+	}
+	this->m_toAdd.clear();
+
+}
+
+const void EntityManager::getTotalEntities() const
+{
+	std::cout << this->m_totalEntities << std::endl;
+}
+
+EntityVec& EntityManager::getEntities()
+{
+	return this->m_entities;
+}
+
+EntityVec& EntityManager::getEntities(const std::string& tag) 
+{
+	return this->m_entityMap[tag];
 }
