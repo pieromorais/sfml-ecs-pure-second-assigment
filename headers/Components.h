@@ -4,6 +4,8 @@
 // pure data components
 #include "Vec2.h"
 #include<SFML/Graphics.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 class CTransform
 {
@@ -33,6 +35,22 @@ public:
 			circle.setOutlineThickness(thickness);
 			circle.setOrigin(radius, radius);
 		}
+};
+
+class CColision
+{
+public:
+	float radius = 0;
+	CColision(float r)
+		:radius(r){};
+};
+
+class CScore
+{
+public:
+	int score = 0;
+	CScore(int s)
+		:score(s){};
 };
 
 #endif
