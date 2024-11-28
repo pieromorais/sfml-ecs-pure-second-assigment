@@ -53,4 +53,26 @@ public:
 		:score(s){};
 };
 
+class CLifeSpan
+{
+public:
+	int remaining = 0; // amount of lifespan remaining on the entity
+	int total = 0; // the total initial amount of lifespan
+	CLifeSpan(int total)
+		: remaining(total), total(total){};
+};
+
+class CInput
+{
+public:
+	bool up		= false;
+	bool left	= false;
+	bool down	= false;
+	bool right	= false;
+	bool shoot	= false;
+
+	CInput(){};
+};
+
+
 #endif
