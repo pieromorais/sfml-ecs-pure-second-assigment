@@ -25,18 +25,22 @@ void Game::init(const std::string& config)
 
 void Game::run()
 {
-	this->m_entities.update();
+	while (this->m_running) 
+	{
+		this->m_entities.update();
 
-	this->sEnemySpawner();
-	this->sMovement();
-	this->sCollison();
-	this->sUserInput();
-	this->sRender();
+		this->sEnemySpawner();
+		this->sMovement();
+		this->sCollison();
+		this->sUserInput();
+		this->sRender();
 
 
-	// increment current frame rate
-	// may need to be moved when paused implemented
-	this->m_currentFrame++;
+		// increment current frame rate
+		// may need to be moved when paused implemented
+		this->m_currentFrame++;
+
+	}
 }
 
 
