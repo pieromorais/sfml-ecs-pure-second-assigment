@@ -1,4 +1,5 @@
 #include "Vec2.h"
+#include "Game.h"
 #include "Entity.h"
 #include "EntityManager.h"
 #include <iostream> // remove later
@@ -27,5 +28,7 @@ int main()
 	em.addEntity("enemy");
 	em.getTotalEntities();
 	
+	Game g("teste");
+	g.run();
 	return 0;
 }
