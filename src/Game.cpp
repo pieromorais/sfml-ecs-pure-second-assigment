@@ -1,7 +1,10 @@
 #include "Game.h"
+#include "Components.h"
 
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <iostream>
+#include <memory>
 #include <ostream>
 #include <string>
 
@@ -100,6 +103,21 @@ void Game::spawnPlayer()
 	//
 	// we create create every entity by calling EntityManager.addEntity(tag)
 	// this returns a std::shared_ptr<Entity>, so we use auto to save typing
+	//
+	auto entity = this->m_entities.addEntity("player");
+
+	// give this entity a Transform so it spawns at (200,200) with velocity (1,1), and angle 0
+	entity->cTransform = std::make_shared<CTransform>(Vec2(200.0f, 200.0f), Vec2(1.0f, 1.0f), 0.0f);
+
+	// the entity's shape will have radius 32, 8 sides, dark gray fill, and read outline of thickness 4
+	entity->cShape = std::make_shared<CShape>(32.0f, 8, sf::Color(10,10,10), sf::Color(255,0,0), 4.0f);
+
+	// add an input component to the player  so that we can use inputs
+	entity->cInput = std::make_shared<CInput>();
+
+	// since we want this Entity to be our player, set our Game's player variable to be this Entity
+	// this goes slightly against the EntityManager paradigm, but we use the player so much it's worth it
+	this->m_player = entity;
 	
 }
 
