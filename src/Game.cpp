@@ -64,6 +64,22 @@ void Game::sLifeSpan()
 void Game::sRender()
 {
 
+	// TODO: change the code below to draw ALL Entites
+	// sample drawing of the player entity that we have created
+	//
+	
+	this->m_window.clear();
+
+	// set player position
+	this->m_player->cShape->circle.setPosition(this->m_player->cTransform->pos.x, this->m_player->cTransform->pos.y);
+	// set rotation 
+	this->m_player->cTransform->angle += 1.0f;
+	this->m_player->cShape->circle.setRotation(this->m_player->cTransform->angle);
+
+	//draw circle
+	this->m_window.draw(this->m_player->cShape->circle);
+	this->m_window.display();
+
 }
 
 void Game::sEnemySpawner()
