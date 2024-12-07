@@ -9,7 +9,7 @@ void EntityManager::addEntity(const std::string& tag)
 {
 	// insert into to_add to avoid interator invalidation
 	// occurs once we remove a entity from array while looping thru
-	Entity testEntity(42);
+	Entity testEntity(this->m_totalEntities + 1, "notDefault");
 	std::shared_ptr sharedVector = std::make_shared<Entity>(testEntity);
 	this->m_totalEntities++;
 	this->m_toAdd.push_back(sharedVector);
