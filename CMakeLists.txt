@@ -13,3 +13,5 @@ include_directories("${CMAKE_SOURCE_DIR}/headers")
 # Add your executable
 add_executable(main ${sources})
 
+# add linkable headers from sfml
+target_link_libraries(main sfml-graphics sfml-window sfml-system)
