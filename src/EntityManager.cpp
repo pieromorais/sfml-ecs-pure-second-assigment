@@ -5,7 +5,7 @@
 
 EntityManager::EntityManager() {}
 
-void EntityManager::addEntity(const std::string& tag)
+std::shared_ptr<Entity> EntityManager::addEntity(const std::string& tag)
 {
 	// insert into to_add to avoid interator invalidation
 	// occurs once we remove a entity from array while looping thru
@@ -16,7 +16,7 @@ void EntityManager::addEntity(const std::string& tag)
 	this->m_entityMap[tag].push_back(sharedVector);
 
 
-//	return e;
+	return sharedVector;
 }
 
 void EntityManager::update()
