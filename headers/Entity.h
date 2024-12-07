@@ -23,12 +23,12 @@ private:
 	Entity(const size_t id, const std::string& tag);
 public:
 	// component pointers
-	std::shared_ptr<CTransform>	CTransform;
-	std::shared_ptr<CShape>		CShape;
-	std::shared_ptr<CColision>	CColision;
-	std::shared_ptr<CInput>		CInput;
-	std::shared_ptr<CScore>		CScore;
-	std::shared_ptr<CLifeSpan>	CLifeSpan;
+	std::shared_ptr<CTransform>	cTransform;
+	std::shared_ptr<CShape>		cShape;
+	std::shared_ptr<CColision>	cColision;
+	std::shared_ptr<CInput>		cInput;
+	std::shared_ptr<CScore>		cScore;
+	std::shared_ptr<CLifeSpan>	cLifeSpan;
 	
 	// private member access functions
 	bool isActive() const;
