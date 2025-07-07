@@ -4,6 +4,12 @@
 #include "EntityManager.h"
 #include <iostream> // remove later
 
+#if DEBUG_LOGGING_ENABLED 
+#define LOG(msg) std::cout << "[DEBUG] " << msg << std::endl
+#else
+#define LOG(msg)
+#endif
+
 int main()
 {
 	Vec2 v1(100,100);
@@ -14,14 +20,16 @@ int main()
 
 	Vec2 vr = v1 + v3;
 
-	std::cout << (v1 == v2) << std::endl;
-	std::cout << (v1 == v3) << std::endl;
-	std::cout << (v1 != v3) << std::endl;
-	std::cout << (v1 != v2) << std::endl;
-	std::cout << vr << std::endl;
-	std::cout << v_.dist(v0) << std::endl;
+	LOG("DEBUG MODE ON");
+	LOG((v1==v2));
+	LOG((v1==v3));
+	LOG((v1!=v2));
+	LOG((v1!=v3));
+	LOG((vr));
+	LOG((v_.dist(v0)));
+
 	v1 /= 10;
-	std::cout << v1 << std::endl;
+	LOG((v1));
 
 	EntityManager em;
 	em.addEntity("enemy");
