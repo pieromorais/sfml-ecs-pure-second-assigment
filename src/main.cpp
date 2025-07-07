@@ -9,6 +9,7 @@
 #else
 #define LOG(msg)
 #endif
+//TODO: create a centralize DEBUG header file to be consistent thru all files
 
 int main()
 {
