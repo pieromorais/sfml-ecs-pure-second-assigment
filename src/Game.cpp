@@ -22,7 +22,7 @@ void Game::init(const std::string& config)
 	this->m_window.create(sf::VideoMode(1280, 720), "Assigment 2");
 	this->m_window.setFramerateLimit(60);
 
-	std::cout << config << std::endl;
+//	std::cout << config << std::endl;
 	this->spawnPlayer();
 }
 
@@ -76,7 +76,7 @@ void Game::sRender()
 	// set player position
 	this->m_player->cShape->circle.setPosition(this->m_player->cTransform->pos.x, this->m_player->cTransform->pos.y);
 	// set rotation 
-	this->m_player->cTransform->angle += 1.0f;
+	this->m_player->cTransform->angle += 10.0f;
 	this->m_player->cShape->circle.setRotation(this->m_player->cTransform->angle);
 
 	//draw circle
