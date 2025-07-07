@@ -15,3 +15,11 @@ add_executable(main ${sources})
 
 # add linkable headers from sfml
 target_link_libraries(main sfml-graphics sfml-window sfml-system)
+
+# add debug mode
+option(DEGUB_MODE "Enables debug logging" OFF)
+if(DEBUG_MODE)
+		add_compile_definitions(DEBUG_LOGGING_ENABLED=1)
+else()	
+		add_compile_definitions(DEBUG_LOGGING_ENABLED=0)
+endif()
