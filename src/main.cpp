@@ -2,14 +2,8 @@
 #include "Game.h"
 #include "Entity.h"
 #include "EntityManager.h"
-#include <iostream> // remove later
+#include "DebugLog.hpp"
 
-#if DEBUG_LOGGING_ENABLED 
-#define LOG(msg) std::cout << "[DEBUG] " << msg << std::endl
-#else
-#define LOG(msg)
-#endif
-//TODO: create a centralize DEBUG header file to be consistent thru all files
 
 int main()
 {
