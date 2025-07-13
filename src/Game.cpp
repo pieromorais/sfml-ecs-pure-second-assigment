@@ -56,7 +56,38 @@ void Game::sMovement()
 
 void Game::sUserInput()
 {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+		LOG("W");
+		m_player->cInput->up = true;
+	}else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+		m_player->cInput->up = false;	
+	}
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+		LOG("A");
+		m_player->cInput->left = true;
+	}else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+		m_player->cInput->left = false;	
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+		LOG("D");
+		m_player->cInput->right = true;
+	}else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+		m_player->cInput->right = false;	
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+		LOG("S");
+		m_player->cInput->down = true;
+		
+		// update positions
+		m_player->cTransform->pos.y = m_player->cTransform->pos.y + 10;
+
+		m_player->cShape->circle.setPosition(m_player->cTransform->pos.x, m_player->cTransform->pos.y);
+	}else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+		m_player->cInput->down = false;	
+	}
 }
 
 void Game::sLifeSpan()
@@ -74,7 +105,6 @@ void Game::sRender()
 	this->m_window.clear();
 
 	// set player position
-	this->m_player->cShape->circle.setPosition(this->m_player->cTransform->pos.x, this->m_player->cTransform->pos.y);
 	// set rotation 
 	this->m_player->cTransform->angle += 10.0f;
 	this->m_player->cShape->circle.setRotation(this->m_player->cTransform->angle);
