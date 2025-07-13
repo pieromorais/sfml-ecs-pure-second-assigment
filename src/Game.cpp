@@ -20,7 +20,7 @@ void Game::init(const std::string& config)
 	//
 	// set up default window paramenters
 	this->m_window.create(sf::VideoMode(1280, 720), "Assigment 2");
-	this->m_window.setFramerateLimit(60);
+	this->m_window.setFramerateLimit(30);
 
 //	std::cout << config << std::endl;
 	this->spawnPlayer();
