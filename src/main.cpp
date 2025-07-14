@@ -15,21 +15,21 @@ int main()
 
 	Vec2 vr = v1 + v3;
 
-	LOG("DEBUG MODE ON");
-	LOG((v1==v2));
-	LOG((v1==v3));
-	LOG((v1!=v2));
-	LOG((v1!=v3));
-	LOG((vr));
-	LOG((v_.dist(v0)));
+//	LOG("DEBUG MODE ON");
+//	LOG((v1==v2));
+//	LOG((v1==v3));
+//	LOG((v1!=v2));
+//	LOG((v1!=v3));
+//	LOG((vr));
+//	LOG((v_.dist(v0)));
 
 	v1 /= 10;
-	LOG((v1));
+//	LOG((v1));
 
 	EntityManager em;
-	em.addEntity("enemy");
-	em.addEntity("enemy");
-	em.getTotalEntities();
+//	em.addEntity("enemy");
+//	em.addEntity("enemy");
+//	em.getTotalEntities();
 	
 	Game g("../config.txt");
 	g.run();
