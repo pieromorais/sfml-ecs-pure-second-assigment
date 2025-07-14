@@ -5,9 +5,9 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/VideoMode.hpp>
+#include <fstream>
 #include <iostream>
 #include <memory>
-#include <ostream>
 #include <string>
 
 Game::Game(const std::string& config)
@@ -19,10 +19,41 @@ void Game::init(const std::string& config)
 {
 	// TODO: read config file here
 	// use premade player config, enemy config, bullet config variables
-	//
-	// set up default window paramenters
-	this->m_window.create(sf::VideoMode(1280, 720), "Assigment 2");
-	this->m_window.setFramerateLimit(15);
+	std::ifstream fin(config);
+	if (!fin.is_open()) {
+		LOG("File failed to open!");
+		exit(-1);
+	}
+	std::string cfgName;
+
+	WindowConfig	w;
+	FontConfig		f;
+	PlayerConfig	p;		
+	EnemyConfig		e;
+	BulletConfig	b;
+	
+	while (fin >> cfgName) {
+		if (cfgName == "Window") {
+			LOG("Window config");
+			fin >> w.W >> w.H >> w.FL >> w.FS;
+		}else if (cfgName == "Font") {
+			LOG("Font config");
+			fin >> f.F >> f.S >> f.R >> f.G >> f.B;	
+		}else if (cfgName == "Player") {
+			LOG("Player config");
+			fin >> p.SR >> p.CR >> p.FR >> p.FG >> p.FB >> p.OR >> p.OG >> p.OB >> p.OT >> p.V >> p.S;
+		}else if (cfgName == "Enemy") {
+			LOG("Enemy config");
+			fin >> e.SR >> e.CR >> e.OR >> e.OG >> e.OB >> e.OT >> e.VMIN >> e.VMAX >> e.L >> e.SI >> e.SMIN >> e.SMAX;
+		}else if (cfgName == "Bullet") {
+			LOG("Bullet config");
+			fin >> b.SR >> b.CR >> b.FR >> b.FG >> b.OR >> b.OG >> b.OB >> b.OT >> b.V >> b.L >> b.S;
+		}	
+	}
+
+	this->m_window.create(sf::VideoMode(w.W, w.H), "Assigment 2");
+	this->m_window.setFramerateLimit(w.FL);
+	// TODO: implement fullscreen check later
 
 	this->spawnPlayer();
 }

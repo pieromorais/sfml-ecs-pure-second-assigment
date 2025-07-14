@@ -10,10 +10,13 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <memory>
+#include <string>
 
-struct PlayerConfig	{ int SR, CR, FR, FG, FB, OR, OG, OB, OT, V; float S; };
-struct EnemyConfig	{ int SR, CR, OR, OG, OB, OT, VMIN, VMAX, L, SI; float SMIN, SMAX; };
-struct BulletConfig	{ int SR, CR, FR, FG, FB, OR, OG, OB, OT, V, L; float S; };
+struct WindowConfig { int W, H, FL, FS; }; // FL - frame limit, FS - full screen 1 or 0
+struct FontConfig	{ std::string F; int S, R, G, B; }; // S - font size
+struct PlayerConfig	{ int SR, CR, FR, FG, FB, OR, OG, OB, OT, V; float S; }; // SR - shape radius; CR - collison radius; S speed; F - fill color RGB, O - outline color RGB, OT outline tickness, V shape vertices
+struct EnemyConfig	{ int SR, CR, OR, OG, OB, OT, VMIN, VMAX, L, SI; float SMIN, SMAX; }; //smin smax - min and max speeds; vmin and vmax - min and max number of vertices; L - small lifespan; SP spawn interval
+struct BulletConfig	{ int SR, CR, FR, FG, FB, OR, OG, OB, OT, V, L; float S; }; // L lifespan
 
 class Game
 {
@@ -23,13 +26,13 @@ private:
 //	sf::Font		m_font;
 //	sf::Text		m_text;
 	PlayerConfig		m_playerConfig;
-	EnemyConfig		m_enemyConfig;
+	EnemyConfig			m_enemyConfig;
 	BulletConfig		m_bulletConfig;
-	int			m_score = 0;
-	int			m_currentFrame = 0;
-	int			m_lastEnemyTimeSpan = 0;
-	bool			m_paused = false;
-	bool			m_running = true;
+	int					m_score = 0;
+	int					m_currentFrame = 0;
+	int					m_lastEnemyTimeSpan = 0;
+	bool				m_paused = false;
+	bool				m_running = true;
 
 	std::shared_ptr<Entity> m_player; 
 
