@@ -31,7 +31,7 @@ int main()
 	em.addEntity("enemy");
 	em.getTotalEntities();
 	
-	Game g("config.txt");
+	Game g("../config.txt");
 	g.run();
 	return 0;
 }

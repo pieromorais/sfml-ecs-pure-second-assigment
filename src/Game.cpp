@@ -8,7 +8,6 @@
 #include <fstream>
 #include <iostream>
 #include <memory>
-#include <ostream>
 #include <string>
 
 Game::Game(const std::string& config)
@@ -21,6 +20,10 @@ void Game::init(const std::string& config)
 	// TODO: read config file here
 	// use premade player config, enemy config, bullet config variables
 	std::ifstream fin(config);
+	if (!fin.is_open()) {
+		LOG("File failed to open!");
+		exit(-1);
+	}
 	std::string cfgName;
 
 	WindowConfig	w;
@@ -38,7 +41,7 @@ void Game::init(const std::string& config)
 			fin >> f.F >> f.S >> f.R >> f.G >> f.B;	
 		}else if (cfgName == "Player") {
 			LOG("Player config");
-			fin >> p.SR >>  p.CR >> p.FR >> p.FG >> p.FB >> p.OR >> p.OG >> p.OB >> p.OT >> p.V >> p.S;
+			fin >> p.SR >> p.CR >> p.FR >> p.FG >> p.FB >> p.OR >> p.OG >> p.OB >> p.OT >> p.V >> p.S;
 		}else if (cfgName == "Enemy") {
 			LOG("Enemy config");
 			fin >> e.SR >> e.CR >> e.OR >> e.OG >> e.OB >> e.OT >> e.VMIN >> e.VMAX >> e.L >> e.SI >> e.SMIN >> e.SMAX;
