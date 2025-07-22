@@ -3,6 +3,7 @@
 #include "DebugLog.hpp"
 
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <fstream>
@@ -51,8 +52,8 @@ void Game::init(const std::string& config)
 		}	
 	}
 
-	this->m_window.create(sf::VideoMode(w.W, w.H), "Assigment 2");
-	this->m_window.setFramerateLimit(w.FL);
+	m_window.create(sf::VideoMode(w.W, w.H), "Assigment 2");
+	m_window.setFramerateLimit(w.FL);
 	// TODO: implement fullscreen check later
 
 	this->spawnPlayer();
@@ -62,6 +63,15 @@ void Game::run()
 {
 	while (this->m_running) 
 	{
+
+		sf::Event event;
+
+		while (m_window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				m_window.close();
+			}	
+		}
+
 		this->m_entities.update();
 
 		this->sEnemySpawner();
