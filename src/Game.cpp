@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Components.h"
 #include "DebugLog.hpp"
+#include "Vec2.h"
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Event.hpp>
@@ -42,7 +43,12 @@ void Game::init(const std::string& config)
 			fin >> f.F >> f.S >> f.R >> f.G >> f.B;	
 		}else if (cfgName == "Player") {
 			LOG("Player config");
-			fin >> p.SR >> p.CR >> p.FR >> p.FG >> p.FB >> p.OR >> p.OG >> p.OB >> p.OT >> p.V >> p.S;
+			//fin >> p.SR >> p.CR >> p.FR >> p.FG >> p.FB >> p.OR >> p.OG >> p.OB >> p.OT >> p.V >> p.S;
+			fin >>	m_playerConfig.SR	>>	m_playerConfig.CR	>>	m_playerConfig.S 
+				>>	m_playerConfig.FR	>>	m_playerConfig.FG	>>	m_playerConfig.FB 
+				>>	m_playerConfig.OR	>>	m_playerConfig.OG	>> m_playerConfig.OB 
+				>> m_playerConfig.OT	>> m_playerConfig.V;
+
 		}else if (cfgName == "Enemy") {
 			LOG("Enemy config");
 			fin >> e.SR >> e.CR >> e.OR >> e.OG >> e.OB >> e.OT >> e.VMIN >> e.VMAX >> e.L >> e.SI >> e.SMIN >> e.SMAX;
@@ -55,12 +61,12 @@ void Game::init(const std::string& config)
 	m_window.create(sf::VideoMode(w.W, w.H), "Assigment 2");
 	m_window.setFramerateLimit(w.FL);
 	// TODO: implement fullscreen check later
-
-	this->spawnPlayer();
 }
 
 void Game::run()
 {
+
+	this->spawnPlayer();
 	while (this->m_running) 
 	{
 
@@ -98,7 +104,11 @@ void Game::sMovement()
 
 void Game::sUserInput()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+	if (
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
+		&&
+		m_player->cTransform->pos.y > 0
+	) {
 		LOG("W");
 		m_player->cInput->up = true;
 
@@ -108,7 +118,11 @@ void Game::sUserInput()
 		m_player->cInput->up = false;	
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+	if (
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
+		&&
+		m_player->cTransform->pos.x > 0
+	) {
 		LOG("A");
 		m_player->cInput->left = true;
 
@@ -118,7 +132,10 @@ void Game::sUserInput()
 		m_player->cInput->left = false;	
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
+		&&
+		m_player->cTransform->pos.x < m_window.getSize().x
+	) {
 		LOG("D");
 		m_player->cInput->right = true;
 
@@ -129,7 +146,11 @@ void Game::sUserInput()
 		m_player->cInput->right = false;	
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+	if (
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
+		&&
+		m_player->cTransform->pos.y < m_window.getSize().y
+	) {
 		LOG("S");
 		m_player->cInput->down = true;
 		
@@ -158,7 +179,7 @@ void Game::sRender()
 
 	// set player position
 	// set rotation 
-	this->m_player->cTransform->angle += 10.0f;
+	this->m_player->cTransform->angle += 2.0f;
 	this->m_player->cShape->circle.setRotation(this->m_player->cTransform->angle);
 
 	//draw circle
@@ -189,10 +210,19 @@ void Game::spawnPlayer()
 	auto entity = this->m_entities.addEntity("player");
 
 	// give this entity a Transform so it spawns at (200,200) with velocity (1,1), and angle 0
-	entity->cTransform = std::make_shared<CTransform>(Vec2(200.0f, 200.0f), Vec2(1.0f, 1.0f), 0.0f);
+	entity->cTransform = std::make_shared<CTransform>(Vec2(200.0f, 200.0f), Vec2(m_playerConfig.S, m_playerConfig.S), 0.0f);
 
 	// the entity's shape will have radius 32, 8 sides, dark gray fill, and read outline of thickness 4
-	entity->cShape = std::make_shared<CShape>(32.0f, 8, sf::Color(10,10,10), sf::Color(255,0,0), 4.0f);
+	entity->cShape = std::make_shared<CShape>(
+		m_playerConfig.SR, 
+		m_playerConfig.V, 
+		sf::Color(m_playerConfig.FR, m_playerConfig.FG, m_playerConfig.FB), 
+		sf::Color(m_playerConfig.OR, m_playerConfig.OG, m_playerConfig.OB), 
+		m_playerConfig.OT
+	 );
+
+	entity->cColision = std::make_shared<CColision>(m_playerConfig.CR);
+
 
 	// add an input component to the player  so that we can use inputs
 	entity->cInput = std::make_shared<CInput>();
