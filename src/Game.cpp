@@ -223,6 +223,7 @@ void Game::spawnPlayer()
 
 	entity->cColision = std::make_shared<CColision>(m_playerConfig.CR);
 
+
 	// add an input component to the player  so that we can use inputs
 	entity->cInput = std::make_shared<CInput>();
 
