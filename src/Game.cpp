@@ -107,7 +107,7 @@ void Game::sUserInput()
 	if (
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
 		&&
-		m_player->cTransform->pos.y > 0
+		(m_player->cTransform->pos.y - (m_player->cColision->radius + m_player->cShape->circle.getOutlineThickness())) > 0
 	) {
 		LOG("W");
 		m_player->cInput->up = true;
@@ -121,7 +121,7 @@ void Game::sUserInput()
 	if (
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
 		&&
-		m_player->cTransform->pos.x > 0
+		(m_player->cTransform->pos.x - (m_player->cColision->radius + m_player->cShape->circle.getOutlineThickness())) > 0
 	) {
 		LOG("A");
 		m_player->cInput->left = true;
@@ -134,7 +134,7 @@ void Game::sUserInput()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
 		&&
-		m_player->cTransform->pos.x < m_window.getSize().x
+		(m_player->cTransform->pos.x + (m_player->cColision->radius + m_player->cShape->circle.getOutlineThickness())) < m_window.getSize().x
 	) {
 		LOG("D");
 		m_player->cInput->right = true;
@@ -149,7 +149,7 @@ void Game::sUserInput()
 	if (
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
 		&&
-		m_player->cTransform->pos.y < m_window.getSize().y
+		(m_player->cTransform->pos.y + (m_player->cColision->radius + m_player->cShape->circle.getOutlineThickness())) < m_window.getSize().y
 	) {
 		LOG("S");
 		m_player->cInput->down = true;
