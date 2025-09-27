@@ -4,6 +4,7 @@
 #include "Vec2.h"
 
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/System/Angle.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/VideoMode.hpp>
@@ -58,7 +59,10 @@ void Game::init(const std::string& config)
 		}	
 	}
 
-	m_window.create(sf::VideoMode(w.W, w.H), "Assigment 2");
+	// TODO: maybe change this to other place
+	sf::Vector2u size(w.W, w.H);
+
+	m_window.create(sf::VideoMode(size), "Assigment 2");
 	m_window.setFramerateLimit(w.FL);
 	// TODO: implement fullscreen check later
 }
@@ -70,12 +74,20 @@ void Game::run()
 	while (this->m_running) 
 	{
 
-		sf::Event event;
-
-		while (m_window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed) {
+		while (const std::optional event = m_window.pollEvent())
+		{
+			// Process the event
+			if (event->is<sf::Event::Closed>())
+			{
 				m_window.close();
-			}	
+			}
+			else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+			{
+				if (keyPressed->scancode == sf::Keyboard::Scan::Escape)
+				{
+					std::cout << "Escape key pressed!" << std::endl;
+				}
+			}
 		}
 
 		this->m_entities.update();
@@ -113,7 +125,7 @@ void Game::sUserInput()
 		m_player->cInput->up = true;
 
 		m_player->cTransform->pos.y = m_player->cTransform->pos.y - 10;
-		m_player->cShape->circle.setPosition(m_player->cTransform->pos.x, m_player->cTransform->pos.y);
+		m_player->cShape->circle.setPosition({m_player->cTransform->pos.x, m_player->cTransform->pos.y});
 	}else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
 		m_player->cInput->up = false;	
 	}
@@ -127,7 +139,7 @@ void Game::sUserInput()
 		m_player->cInput->left = true;
 
 		m_player->cTransform->pos.x = m_player->cTransform->pos.x - 10;
-		m_player->cShape->circle.setPosition(m_player->cTransform->pos.x, m_player->cTransform->pos.y);
+		m_player->cShape->circle.setPosition({m_player->cTransform->pos.x, m_player->cTransform->pos.y});
 	}else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
 		m_player->cInput->left = false;	
 	}
@@ -140,7 +152,7 @@ void Game::sUserInput()
 		m_player->cInput->right = true;
 
 		m_player->cTransform->pos.x = m_player->cTransform->pos.x + 10;
-		m_player->cShape->circle.setPosition(m_player->cTransform->pos.x, m_player->cTransform->pos.y);
+		m_player->cShape->circle.setPosition({m_player->cTransform->pos.x, m_player->cTransform->pos.y});
 
 	}else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
 		m_player->cInput->right = false;	
@@ -156,7 +168,7 @@ void Game::sUserInput()
 		
 		// update positions
 		m_player->cTransform->pos.y = m_player->cTransform->pos.y + 10;
-		m_player->cShape->circle.setPosition(m_player->cTransform->pos.x, m_player->cTransform->pos.y);
+		m_player->cShape->circle.setPosition({m_player->cTransform->pos.x, m_player->cTransform->pos.y});
 
 	}else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
 		m_player->cInput->down = false;	
@@ -179,7 +191,7 @@ void Game::sRender()
 
 	// set player position
 	// set rotation 
-	this->m_player->cTransform->angle += 2.0f;
+	this->m_player->cTransform->angle += sf::degrees(2.0f);
 	this->m_player->cShape->circle.setRotation(this->m_player->cTransform->angle);
 
 	//draw circle

@@ -4,6 +4,7 @@
 #include "EntityManager.h"
 #include "DebugLog.hpp"
 
+// SFML Version 3.0.2
 
 int main()
 {
@@ -22,8 +23,8 @@ int main()
 	LOG((v1!=v3));
 	LOG((vr));
 	LOG((v_.dist(v0)));
-
-	v1 /= 10;
+	
+   	v1 /= 10;
 	LOG((v1));
 
 	EntityManager em;

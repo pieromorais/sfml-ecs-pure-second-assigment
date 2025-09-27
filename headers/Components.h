@@ -6,18 +6,19 @@
 #include<SFML/Graphics.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/System/Angle.hpp>
 
 class CTransform
 {
 public:
-	Vec2	pos =	{0.0, 0.0};
-	Vec2	vel =	{0.0, 0.0};
-	float	angle = 0.0;
+	Vec2		pos =	{0.0, 0.0};
+	Vec2		vel =	{0.0, 0.0};
+	sf::Angle	angle;
 
 	CTransform(const Vec2& p, const Vec2& v, float a)
 		:pos(p)
 		,vel(v)
-		,angle(a)
+		,angle(sf::degrees(a))
 	{}
 
 };
@@ -33,7 +34,7 @@ public:
 			circle.setFillColor(fill);
 			circle.setOutlineColor(outline);
 			circle.setOutlineThickness(thickness);
-			circle.setOrigin(radius, radius);
+			circle.setOrigin({radius, radius});
 		}
 };
 
